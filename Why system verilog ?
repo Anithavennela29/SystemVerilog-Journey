@@ -1,0 +1,60 @@
+SystemVerilog (SV) is an enhanced version of Verilog that combines hardware description and verification into a single language. Here’s why it’s preferred over Verilog:
+
+Memory is allocated during comiplation time in verilog,whereas  in sv,it is allocated during runtime. 
+1️⃣ Advanced Verification Capabilities
+🔹 Object-Oriented Programming (OOP) – Enables efficient testbench creation using classes and inheritance.
+🔹 Randomization – Simplifies test scenario generation using constrained-random stimulus.
+🔹 Assertions (SVA) – Helps in verifying design functionality with powerful property checks.
+🔹 Functional Coverage – Measures test completeness and improves verification efficiency.
+
+2️⃣ Improved RTL Design Features
+🔹 Strongly Typed Data Types – Supports bit, logic, and int for better synthesis and simulation.
+🔹 Enums & Structs – Makes code more readable and avoids hardcoded values.
+🔹 Interfaces – Reduces wiring complexity and improves modularity.
+🔹 Packed & Unpacked Arrays – Offers flexibility in memory representation.
+
+3️⃣ Productivity & Readability Enhancements
+🔹 Better always_ff, always_comb, and always_latch – Avoids unintended latches.
+🔹 Simplified Fork-Join Constructs – Enables efficient parallel execution.
+🔹 Improved Procedural Blocks (foreach, inside, implication keywords) – Enhances readability and reduces coding effort.
+
+4️⃣ Industry Standard for Verification (UVM)
+🔹 SystemVerilog is the backbone of the Universal Verification Methodology (UVM), widely used in industry for functional verification.
+🔹 Verilog lacks built-in support for sophisticated testbenches, making SV essential for large-scale projects.
+
+
+Verilog Example (verilog_example.v)
+
+module dff (
+    input clk,
+    input rst,
+    input d,
+    output reg q
+);
+always @(posedge clk or posedge rst) begin
+    if (rst)
+        q <= 0;
+    else
+        q <= d;
+end
+endmodule
+
+
+🔹 SystemVerilog Example (systemverilog_example.sv)
+
+module dff (
+    input logic clk,
+    input logic rst,
+    input logic d,
+    output logic q
+);
+always_ff @(posedge clk or posedge rst) begin
+    if (rst)
+        q <= 0;
+    else
+        q <= d;
+end
+endmodule
+Key Differences
+1️⃣ Uses logic instead of reg for better simulation consistency.
+2️⃣ Uses always_ff instead of always for better synthesis and linting.
