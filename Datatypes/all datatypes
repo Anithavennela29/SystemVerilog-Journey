@@ -1,0 +1,144 @@
+🔹 1. Net Types vs. Variable Types
+In SystemVerilog, data types are divided into nets and variables.
+
+🧩 Net Types
+Used for connecting different modules.
+They do not store values; instead, they pass values like physical wires.
+Example: wire, tri, wand, wor.
+
+module net_example;
+    wire a, b, c;  // 'wire' acts as a connection between signals
+    assign a = 1;   // Assigning a value
+    assign b = a;   // b gets the same value as a
+endmodule
+🧩 Variable Types
+Used for storing values inside procedural blocks (always, initial, task, etc.).
+Unlike nets, variables retain their last assigned values.
+Examples: logic, bit, reg, int, byte, real, etc.
+
+module variable_example;
+    logic a;  // Stores 0 or 1
+    int b;    // Stores 32-bit signed integer
+    initial begin
+        a = 1;
+        b = -10;
+    end
+endmodule
+🔹 2. Packed vs. Unpacked Arrays
+SystemVerilog supports packed and unpacked arrays to store multiple values.
+
+📌 Packed Arrays
+Stored as contiguous bits in memory.
+Supports bitwise operations (AND, OR, XOR, etc.).
+Defined before the variable name.
+
+logic [7:0] byte_var;  // 8-bit packed array (bit-vector)
+📌 Unpacked Arrays
+Stored as separate elements in memory.
+Defined after the variable name.
+
+int arr[4];  // Unpacked array of 4 integers
+🔍 Example
+
+module array_example;
+    logic [3:0] packed_arr;  // Packed array (4-bit vector)
+    int unpacked_arr[5];     // Unpacked array (stores 5 integers)
+    
+    initial begin
+        packed_arr = 4'b1010;       // Assigning binary value
+        unpacked_arr = '{1,2,3,4,5};  // Assigning array values
+    end
+endmodule
+🔹 3. Built-in Data Types
+SystemVerilog introduces new data types for better performance.
+
+📌 Integer-Based Types
+Type	     Size	Signed?	Use Case
+bit	       1-bit	No	Optimized storage for binary values
+logic	     1-bit	No	Used for combinational and sequential logic
+byte	     8-bit	Yes	Compact storage for small values
+shortint	 16-bit	Yes	Medium-range integer values
+int	       32-bit	Yes	Default integer type
+longint	   64-bit	Yes	Large integer values
+real	     64-bit	N/A	Floating-point calculations
+string	  Dynamic	N/A	Handling text data
+🔍 Example
+
+module datatype_example;
+    bit a;          // Single-bit variable
+    logic [3:0] b;  // 4-bit logic vector
+    int count;      // 32-bit signed integer
+    longint big_num = 9876543210;  // Large integer
+    real pi = 3.1416;  // Floating-point variable
+    string name = "SystemVerilog";  // String variable
+endmodule
+🔹 4. Structs and Unions
+SystemVerilog supports structures and unions to organize data.
+
+📌 Structs (Structured Group of Variables)
+Groups related variables together.
+Allows easy access using a dot notation.
+
+
+struct {
+    int id;
+    byte addr;
+    bit[3:0] control;
+} packet;
+Named Struct Example
+
+
+typedef struct {
+    int id;
+    bit [7:0] data;
+    logic valid;
+} packet_t;
+
+packet_t pkt;  // Declare a struct instance
+
+📌 Unions (Shared Storage for Multiple Variables)
+Saves memory by allowing multiple variables to share the same storage.
+
+union {
+    int i;
+    real r;
+} data;
+Tagged Union (Safe Type Checking)
+
+
+typedef union tagged {
+    int i;
+    real r;
+} tagged_union_t;
+
+tagged_union_t data;
+data = tagged '({i: 10}); // Assign integer value
+🔹 5. Dynamic Data Types
+SystemVerilog provides flexible data structures for dynamic storage.
+
+📌 Queues (Resizable FIFO Storage)
+Works like a FIFO (First-In-First-Out) buffer.
+
+int queue[$] = {1, 2, 3};  // Dynamic queue
+queue.push_back(4);        // Add element
+queue.pop_front();         // Remove first element
+📌 Associative Arrays (Indexed by Any Data Type)
+Supports non-integer indices (e.g., string).
+
+int assoc_array[string];
+assoc_array["apple"] = 10;
+assoc_array["orange"] = 20;
+📌 Dynamic Arrays (Resizable at Runtime)
+Can grow or shrink dynamically.
+
+int dyn_array[];
+dyn_array = new[5];  // Resize to 5 elements
+🔹 6. Enumerations (enum)
+Improves code readability by replacing integer values with meaningful names.
+
+typedef enum { RED, GREEN, BLUE } color_t;
+color_t my_color = GREEN;
+With Explicit Values
+
+typedef enum { IDLE = 2'b00, BUSY = 2'b01, DONE = 2'b10 } state_t;
+state_t current_state = BUSY;
