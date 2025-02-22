@@ -1,0 +1,23 @@
+                                             SYSTEM VERILOG
+DATATYPES
+QUESTIONS:
+1.	How do you declare and initialize variables of different types?
+2.	What are the advantages and disadvantages of using bit vectors?
+3.	How can you efficiently manipulate individual bits in a bit vector?
+4.	What is the difference between logic and wire?
+5.	When should you use automatic vs. local variables?
+6.	How do you declare and access static variables?
+7.	What is the const keyword used for?
+8.	What are the different types of arrays in SystemVerilog?
+9.	How do you dynamically allocate memory for arrays?
+10.	What are packed and unpacked arrays?
+11.	What are the limitations of using arrays in SystemVerilog?
+12.	Explain the difference between bit and logic data types.
+13.	Discuss the concept of 2-state and 4-state logic.
+14.	Explain the difference between integer and int.
+15.	Differentiate between packed and unpacked arrays.
+16.	Explain dynamic and associative arrays and their use cases.
+17.	Discuss the difference between structures and unions.
+18.	How are user-defined types (typedef) useful?
+19.	How does SystemVerilog handle signed and unsigned integers?
+20.	What happens if we perform an operation between a signed and unsigned variable?
