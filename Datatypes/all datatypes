@@ -142,3 +142,119 @@ With Explicit Values
 
 typedef enum { IDLE = 2'b00, BUSY = 2'b01, DONE = 2'b10 } state_t;
 state_t current_state = BUSY;
+
+
+module data_types_example;
+
+  // 🟢 Integer Data Types
+  bit b;               // 1-bit variable (0,1)
+  logic l;             // 1-bit variable (0,1,x,z) - preferred over reg
+  reg r;               // Legacy Verilog type, use logic instead
+  integer i;           // 32-bit signed integer
+  shortint si;         // 16-bit signed
+  longint li;          // 64-bit signed
+  byte bt;             // 8-bit signed
+  time t;              // 64-bit for simulation time
+
+  // 🟡 Real Data Types
+  real r_var;          // Floating-point number
+  realtime rt;         // Floating-point time variable
+
+  // 🔴 Enumerated Data Type
+  typedef enum {IDLE, RUN, STOP} state_t;
+  state_t state;
+
+  // 🟠 Packed & Unpacked Arrays
+  bit [7:0] p_arr;          // Packed array (acts like a single integer)
+  int u_arr[5];             // Unpacked array (fixed size)
+  int d_arr[];              // Dynamic array
+  int q[$];                 // Queue
+  int aa[int];              // Associative array (indexed by int)
+  
+  // 🟣 Struct & Union
+  typedef struct {
+    int id;
+    bit [7:0] data;
+  } my_struct;
+  my_struct s;
+
+  typedef union {
+    int i;
+    real f;
+  } my_union;
+  my_union u;
+
+ module data_types_example;
+
+  //  Integer Data Types
+  bit b;               // 1-bit variable (0,1)
+  logic l;             // 1-bit variable (0,1,x,z) - preferred over reg
+  reg r;               // Legacy Verilog type, use logic instead
+  integer i;           // 32-bit signed integer
+  shortint si;         // 16-bit signed
+  longint li;          // 64-bit signed
+  byte bt;             // 8-bit signed
+  time t;              // 64-bit for simulation time
+
+  // Real Data Types
+  real r_var;          // Floating-point number
+  realtime rt;         // Floating-point time variable
+
+  // Enumerated Data Type
+  typedef enum {IDLE, RUN, STOP} state_t;
+  state_t state;
+
+  // Packed & Unpacked Arrays
+  bit [7:0] p_arr;          // Packed array (acts like a single integer)
+  int u_arr[5];             // Unpacked array (fixed size)
+  int d_arr[];              // Dynamic array
+  int q[$];                 // Queue
+  int aa[int];              // Associative array (indexed by int)
+  
+  // 🟣 Struct & Union
+  typedef struct {
+    int id;
+    bit [7:0] data;
+  } my_struct;
+  my_struct s;
+
+  typedef union {
+    int i;
+    real f;
+  } my_union;
+  my_union u;
+
+  // 🟢 Class & Object-Oriented Programming
+  class Packet;
+    int addr;
+    bit [7:0] payload;
+  endclass
+  Packet pkt;
+
+  initial begin
+    // Dynamic array example
+    d_arr = new[10];
+    foreach (d_arr[i])
+      d_arr[i] = i * 2;
+    
+    // Queue example
+    q.push_back(10);
+    q.push_back(20);
+    
+    // Associative array example
+    aa[0] = 100;
+    aa[1] = 200;
+    
+    // Object creation
+    pkt = new;
+    pkt.addr = 32'hAABBCCDD;
+    
+    // Display values
+    $display("Integer: %d, ShortInt: %d", i, si);
+    $display("Dynamic Array: %p", d_arr);
+    $display("Queue: %p", q);
+    $display("Struct ID: %d", s.id);
+    $display("Class Packet Addr: %h", pkt.addr);
+  end
+
+endmodule
