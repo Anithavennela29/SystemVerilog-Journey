@@ -213,3 +213,11 @@ state_t current_state = BUSY;
   end
 
 endmodule
+
+
+output:
+Integer: 0, ShortInt: 0
+Dynamic Array: '{0, 2, 4, 6, 8, 10, 12, 14, 16, 18}
+Queue: '{10, 20}
+Struct ID: 0
+Class Packet Addr: AABBCCDD
