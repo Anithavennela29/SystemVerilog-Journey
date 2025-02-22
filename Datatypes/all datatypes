@@ -1,7 +1,7 @@
-🔹 1. Net Types vs. Variable Types
+ Net Types vs. Variable Types
 In SystemVerilog, data types are divided into nets and variables.
 
-🧩 Net Types
+---Net Types---
 Used for connecting different modules.
 They do not store values; instead, they pass values like physical wires.
 Example: wire, tri, wand, wor.
@@ -11,7 +11,7 @@ module net_example;
     assign a = 1;   // Assigning a value
     assign b = a;   // b gets the same value as a
 endmodule
-🧩 Variable Types
+--Variable Types---
 Used for storing values inside procedural blocks (always, initial, task, etc.).
 Unlike nets, variables retain their last assigned values.
 Examples: logic, bit, reg, int, byte, real, etc.
@@ -24,22 +24,21 @@ module variable_example;
         b = -10;
     end
 endmodule
-🔹 2. Packed vs. Unpacked Arrays
+-- Packed vs. Unpacked Arrays---
 SystemVerilog supports packed and unpacked arrays to store multiple values.
 
-📌 Packed Arrays
+--Packed Arrays
 Stored as contiguous bits in memory.
 Supports bitwise operations (AND, OR, XOR, etc.).
 Defined before the variable name.
 
 logic [7:0] byte_var;  // 8-bit packed array (bit-vector)
-📌 Unpacked Arrays
+-- Unpacked Arrays
 Stored as separate elements in memory.
 Defined after the variable name.
-
 int arr[4];  // Unpacked array of 4 integers
-🔍 Example
 
+Example
 module array_example;
     logic [3:0] packed_arr;  // Packed array (4-bit vector)
     int unpacked_arr[5];     // Unpacked array (stores 5 integers)
@@ -49,10 +48,10 @@ module array_example;
         unpacked_arr = '{1,2,3,4,5};  // Assigning array values
     end
 endmodule
-🔹 3. Built-in Data Types
+--- Built-in Data Types---
 SystemVerilog introduces new data types for better performance.
 
-📌 Integer-Based Types
+--Integer-Based Types
 Type	     Size	Signed?	Use Case
 bit	       1-bit	No	Optimized storage for binary values
 logic	     1-bit	No	Used for combinational and sequential logic
@@ -62,7 +61,7 @@ int	       32-bit	Yes	Default integer type
 longint	   64-bit	Yes	Large integer values
 real	     64-bit	N/A	Floating-point calculations
 string	  Dynamic	N/A	Handling text data
-🔍 Example
+Example
 
 module datatype_example;
     bit a;          // Single-bit variable
@@ -72,22 +71,20 @@ module datatype_example;
     real pi = 3.1416;  // Floating-point variable
     string name = "SystemVerilog";  // String variable
 endmodule
-🔹 4. Structs and Unions
+--- Structs and Unions---
 SystemVerilog supports structures and unions to organize data.
 
-📌 Structs (Structured Group of Variables)
+Structs (Structured Group of Variables)
 Groups related variables together.
 Allows easy access using a dot notation.
-
-
+syntax:
 struct {
     int id;
     byte addr;
     bit[3:0] control;
 } packet;
 Named Struct Example
-
-
+example:
 typedef struct {
     int id;
     bit [7:0] data;
@@ -96,16 +93,14 @@ typedef struct {
 
 packet_t pkt;  // Declare a struct instance
 
-📌 Unions (Shared Storage for Multiple Variables)
+---Unions (Shared Storage for Multiple Variables)---
 Saves memory by allowing multiple variables to share the same storage.
-
 union {
     int i;
     real r;
 } data;
 Tagged Union (Safe Type Checking)
-
-
+example:
 typedef union tagged {
     int i;
     real r;
@@ -113,27 +108,27 @@ typedef union tagged {
 
 tagged_union_t data;
 data = tagged '({i: 10}); // Assign integer value
-🔹 5. Dynamic Data Types
-SystemVerilog provides flexible data structures for dynamic storage.
 
-📌 Queues (Resizable FIFO Storage)
+---Queues (Resizable FIFO Storage)
 Works like a FIFO (First-In-First-Out) buffer.
 
 int queue[$] = {1, 2, 3};  // Dynamic queue
 queue.push_back(4);        // Add element
 queue.pop_front();         // Remove first element
-📌 Associative Arrays (Indexed by Any Data Type)
+
+---Associative Arrays (Indexed by Any Data Type)
 Supports non-integer indices (e.g., string).
 
 int assoc_array[string];
 assoc_array["apple"] = 10;
 assoc_array["orange"] = 20;
-📌 Dynamic Arrays (Resizable at Runtime)
+---Dynamic Arrays (Resizable at Runtime)
 Can grow or shrink dynamically.
 
 int dyn_array[];
 dyn_array = new[5];  // Resize to 5 elements
-🔹 6. Enumerations (enum)
+
+---Enumerations (enum)---
 Improves code readability by replacing integer values with meaningful names.
 
 typedef enum { RED, GREEN, BLUE } color_t;
@@ -143,46 +138,6 @@ With Explicit Values
 typedef enum { IDLE = 2'b00, BUSY = 2'b01, DONE = 2'b10 } state_t;
 state_t current_state = BUSY;
 
-
-module data_types_example;
-
-  // 🟢 Integer Data Types
-  bit b;               // 1-bit variable (0,1)
-  logic l;             // 1-bit variable (0,1,x,z) - preferred over reg
-  reg r;               // Legacy Verilog type, use logic instead
-  integer i;           // 32-bit signed integer
-  shortint si;         // 16-bit signed
-  longint li;          // 64-bit signed
-  byte bt;             // 8-bit signed
-  time t;              // 64-bit for simulation time
-
-  // 🟡 Real Data Types
-  real r_var;          // Floating-point number
-  realtime rt;         // Floating-point time variable
-
-  // 🔴 Enumerated Data Type
-  typedef enum {IDLE, RUN, STOP} state_t;
-  state_t state;
-
-  // 🟠 Packed & Unpacked Arrays
-  bit [7:0] p_arr;          // Packed array (acts like a single integer)
-  int u_arr[5];             // Unpacked array (fixed size)
-  int d_arr[];              // Dynamic array
-  int q[$];                 // Queue
-  int aa[int];              // Associative array (indexed by int)
-  
-  // 🟣 Struct & Union
-  typedef struct {
-    int id;
-    bit [7:0] data;
-  } my_struct;
-  my_struct s;
-
-  typedef union {
-    int i;
-    real f;
-  } my_union;
-  my_union u;
 
  module data_types_example;
 
@@ -211,7 +166,7 @@ module data_types_example;
   int q[$];                 // Queue
   int aa[int];              // Associative array (indexed by int)
   
-  // 🟣 Struct & Union
+  //  Struct & Union
   typedef struct {
     int id;
     bit [7:0] data;
@@ -224,7 +179,7 @@ module data_types_example;
   } my_union;
   my_union u;
 
-  // 🟢 Class & Object-Oriented Programming
+  //  Class & Object-Oriented Programming
   class Packet;
     int addr;
     bit [7:0] payload;
